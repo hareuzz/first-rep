@@ -8,7 +8,7 @@ import requests
 
 #python request headers
 '''
-headers = {
+headers = { 
     "Authorization" : f"Bearer {AIRTABLE_API_KEY}",
     "Content-Type": "application/json" 
 }
@@ -58,7 +58,7 @@ print(r.status_code)
 '''
 
 
-def add_to_airtable(Invoices=None, name=""):
+def add_to_airtable(Invoices=None, name="",hourly_rate="", hours_worked="", due_date=""):
     if Invoices is None:
         return
     headers = {
@@ -72,9 +72,9 @@ def add_to_airtable(Invoices=None, name=""):
             "fields": {
                 "Invoices": Invoices,
                 "Name": name,
-                "hourly Rate": 60,
-                "Hours worked": 3.5,
-                "Due Date": "2022-10-21"
+                "hourly Rate": hourly_rate,
+                "Hours worked": hours_worked,
+                "Due Date": due_date
 #Fields other than invoices and name are hard coded. They can be added as 
 # an input request the same way invoices and names are added. 
                 }
@@ -82,13 +82,18 @@ def add_to_airtable(Invoices=None, name=""):
         ]
     }
     r = requests.post(endpoint, json = data, headers=headers)
-    print(r)
+    print(r) #200 code is successful run, 400 is error 
 
 #http methods
 #What is the method for "create"? -> HTTP Method POST
 
+
+#now i am going to make some changes to the file structure to see how git works
+
 Invoices = input("what is the invoice #?")
 name = input("what is the name ?")
-add_to_airtable(Invoices, name)
+hourly_rate = input("What is the hourly rate of the freelancer?")
+hours_worked = input("How many hours worked (in decimal point?) ")
+due_date = input("What is the due date of the payment?")
 
-#making changes (adding comment) to see how git works
+add_to_airtable(Invoices, name, hourly_rate, hours_worked, due_date)
